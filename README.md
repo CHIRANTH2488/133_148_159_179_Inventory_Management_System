@@ -25,31 +25,31 @@ Building and deploying a microservices architecture where multiple components co
  Manually create two Docker networks. One network will host the RabbitMQ image, and the other will hold all the remaining microservices. Start a RabbitMQ container on the network created for RabbitMQ. Access this network through its gateway IP address to connect to RabbitMQ from producers/consumers
 
 ## **Producer Service:**
-- * *RabbitMQ Client* : Constructs queues/exchanges and transfers data to consumers. The exchange delivers messages to one of four different queues (one for each consumer) based on the binding/routing key.
-- * *Health Check Server* : An HTTP server (Flask for Python/Express for Node.js) that listens to health_check requests and distributes them to the respective consumer. Listens to GET requests with the health_check message as an argument to check if the RabbitMQ connection is established.
-- * *Insert Record Server* : An HTTP server that listens to insert_record requests and distributes them to the respective consumer for inserting records into the database. Listens to POST requests containing fields like Name, SRN, and Section.
-- * *Read Database Server* : An HTTP server that listens to read_database requests and distributes them to the respective consumer for retrieving all records from the database. Listens to GET requests.
-- * *Update Record Server* : An HTTP server that listens to update_record requests and distributes them to the respective consumer for updating records in the database. Listens to POST requests containing fields like SRN and updated data.
+- ***RabbitMQ Client*** : Constructs queues/exchanges and transfers data to consumers. The exchange delivers messages to one of four different queues (one for each consumer) based on the binding/routing key.
+- ***Health Check Server*** : An HTTP server (Flask for Python/Express for Node.js) that listens to health_check requests and distributes them to the respective consumer. Listens to GET requests with the health_check message as an argument to check if the RabbitMQ connection is established.
+- ***Insert Record Server*** : An HTTP server that listens to insert_record requests and distributes them to the respective consumer for inserting records into the database. Listens to POST requests containing fields like Name, SRN, and Section.
+- ***Read Database Server*** : An HTTP server that listens to read_database requests and distributes them to the respective consumer for retrieving all records from the database. Listens to GET requests.
+- ***Update Record Server*** : An HTTP server that listens to update_record requests and distributes them to the respective consumer for updating records in the database. Listens to POST requests containing fields like SRN and updated data.
 
 
 ## **Consumers:**
-- * *Consumer One (health_check)*: 
+- ***Consumer One (health_check)***: 
 * RabbitMQ Client: Listens for health_check requests on the “health_check” queue and processes them.
 Acknowledges health-check messages through the “health_check” queue with a simple acknowledgment.
-- * *Consumer Two (insert_record)*:
+- ***Consumer Two (insert_record)***:
 * RabbitMQ Client: Listens for insert_record requests on the “insert_record” queue and processes them.
 Inserts records into the chosen database (e.g., SQL, MongoDB) based on the data received through the “insert_record” queue.
-- * *Consumer Three (delete_record)*:
+- ***Consumer Three (delete_record)***:
 * RabbitMQ Client: Listens for delete_record requests on the “delete_record” queue and processes them.
 Deletes records from the database based on the SRN received through the “delete_record” queue.
-- * *Consumer Four (read_database)*:
+- ***Consumer Four (read_database)***:
 * RabbitMQ Client: Listens for read_database requests on the “read_database” queue and processes them.
 Retrieves all records from the database.
-- * *Consumer Five (update_record)*:
+- ***Consumer Five (update_record)***:
 * RabbitMQ Client: Listens for update_record requests on the “update_record” queue and processes them.
 Updates records in the database based on the SRN received through the “update_record” queue.
-- * *Dockerization*:
-Ensure necessary ports are exposed for communication when creating Dockerfiles for producers and consumer programs.
+- ***Dockerization***:
+* Ensure necessary ports are exposed for communication when creating Dockerfiles for producers and consumer programs.
 Create a docker-compose file that runs the producer, consumers, and the database microservice container.
 
 **README.md**: Instructions for setting up and running the project.
