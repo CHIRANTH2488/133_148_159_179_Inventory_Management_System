@@ -33,38 +33,26 @@ Building and deploying a microservices architecture where multiple components co
 
 
 ## **Consumers:**
-- ***Consumer One (health_check)***: 
-* RabbitMQ Client: Listens for health_check requests on the “health_check” queue and processes them.
-Acknowledges health-check messages through the “health_check” queue with a simple acknowledgment.
-- ***Consumer Two (insert_record)***:
-* RabbitMQ Client: Listens for insert_record requests on the “insert_record” queue and processes them.
-Inserts records into the chosen database (e.g., SQL, MongoDB) based on the data received through the “insert_record” queue.
-- ***Consumer Three (delete_record)***:
-* RabbitMQ Client: Listens for delete_record requests on the “delete_record” queue and processes them.
-Deletes records from the database based on the SRN received through the “delete_record” queue.
-- ***Consumer Four (read_database)***:
-* RabbitMQ Client: Listens for read_database requests on the “read_database” queue and processes them.
-Retrieves all records from the database.
-- ***Consumer Five (update_record)***:
-* RabbitMQ Client: Listens for update_record requests on the “update_record” queue and processes them.
-Updates records in the database based on the SRN received through the “update_record” queue.
-- ***Dockerization***:
-* Ensure necessary ports are exposed for communication when creating Dockerfiles for producers and consumer programs.
-Create a docker-compose file that runs the producer, consumers, and the database microservice container.
+- ***Consumer One (health_check)*** : RabbitMQ Client: Listens for health_check requests on the “health_check” queue and processes them. Acknowledges health-check messages through the “health_check” queue with a simple acknowledgment.
+- ***Consumer Two (insert_record)*** : RabbitMQ Client: Listens for insert_record requests on the “insert_record” queue and processes them. Inserts records into the chosen database (e.g., SQL, MongoDB) based on the data received through the “insert_record” queue.
+- ***Consumer Three (delete_record)*** : RabbitMQ Client: Listens for delete_record requests on the “delete_record” queue and processes them. Deletes records from the database based on the SRN received through the “delete_record” queue.
+- ***Consumer Four (read_database)*** : RabbitMQ Client: Listens for read_database requests on the “read_database” queue and processes them. Retrieves all records from the database.
+- ***Consumer Five (update_record)*** : RabbitMQ Client: Listens for update_record requests on the “update_record” queue and processes them. Updates records in the database based on the SRN received through the “update_record” queue.
+- ***Dockerization*** : Ensure necessary ports are exposed for communication when creating Dockerfiles for producers and consumer programs. Create a docker-compose file that runs the producer, consumers, and the database microservice container.
 
 **README.md**: Instructions for setting up and running the project.
 Each directory contains a Dockerfile and a requirements.txt file specifying the dependencies for the respective service.
 
 
 ## Instructions 
-# Setting Up RabbitMQ Container
+### Setting Up RabbitMQ Container
 1) **Create a Docker Network**: Manually create a Docker network to host the RabbitMQ container. This network will facilitate communication between the RabbitMQ container and other services.
 Command :  docker network create rabbitmq_network
 2) **Start RabbitMQ Container**: Launch a RabbitMQ container on the created network using the command : docker-compose up -d rabbitmq 
 for example :  docker run -d --name rabbitmq --network rabbitmq_network -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 This command starts the RabbitMQ container in detached mode (-d), allowing it to run in the background.
 
-# Building the Dependencies
+### Building the Dependencies
 To build the necessary dependencies for the microservices, use the command : docker-compose up --build
 This command will read the docker-compose.yml file, build the Docker images for each service defined in the file, and start the containers.
 
