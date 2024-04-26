@@ -20,11 +20,9 @@ Building and deploying a microservices architecture where multiple components co
 ## File Structure
 ![File Structure](FileStructure.png)
 
-
 ## Project Structure
 ## **Create Docker Networks**:
- Manually create two Docker networks. One network will host the RabbitMQ image, and the other will hold all the remaining microservices. Start a RabbitMQ container on the network created for RabbitMQ. Access this network through its gateway IP address to connect to RabbitMQ from producers/consumers.
-
+ Manually create two Docker networks. One network will host the RabbitMQ image, and the other will hold all the remaining microservices. Start a RabbitMQ container on the network created for RabbitMQ. Access this network through its gateway IP address to connect to RabbitMQ from producers/consumers
 
 ## **Producer Service:**
 **RabbitMQ Client** : Constructs queues/exchanges and transfers data to consumers. The exchange delivers messages to one of four different queues (one for each consumer) based on the binding/routing key.
@@ -60,7 +58,6 @@ Each directory contains a Dockerfile and a requirements.txt file specifying the 
 
 ## Instructions 
 # Setting Up RabbitMQ Container
-
 1) **Create a Docker Network**: Manually create a Docker network to host the RabbitMQ container. This network will facilitate communication between the RabbitMQ container and other services.
 Command :  docker network create rabbitmq_network
 2) **Start RabbitMQ Container**: Launch a RabbitMQ container on the created network using the command : docker-compose up -d rabbitmq 
